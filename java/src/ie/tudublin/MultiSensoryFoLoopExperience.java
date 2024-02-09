@@ -7,6 +7,8 @@ import processing.core.PApplet;
 public class MultiSensoryFoLoopExperience extends PApplet {
 
     int mode = 0;
+    float[] starX, starY, starTwinkleRate;
+    int numStars = 100;
 
     Minim minim;
     AudioOutput out;
@@ -19,6 +21,16 @@ public class MultiSensoryFoLoopExperience extends PApplet {
     public void setup()
     {
         colorMode(HSB);
+        starX = new float[numStars];
+        starY = new float[numStars];
+        starTwinkleRate = new float[numStars];
+
+        for (int i = 0; i < numStars; i++) {
+            starX[i] = random(width);
+            starY[i] = random(height);
+            starTwinkleRate[i] = random(0.05f, 0.1f); 
+
+        }
     }
 
     public void draw()
@@ -43,8 +55,6 @@ public class MultiSensoryFoLoopExperience extends PApplet {
             case 1:
                 for (int i = 0 ; i < 10 ; i ++)
                 {
-                    noLoop(); 
-                    noStroke(); 
 
                     int numberOfStripes = 10; 
                     float stripeWidth = width / (float) numberOfStripes; 
@@ -74,17 +84,27 @@ public class MultiSensoryFoLoopExperience extends PApplet {
             break;
 
             case 3:
-    int numCircles = 10; 
-    float maxRadius = min(width, height) * 0.4f; 
+                int numCircles = 10; 
+                float maxRadius = min(width, height) * 0.4f; 
 
-    for (int i = numCircles; i > 0; i--) {
-        float radius1 = maxRadius * (i / (float)numCircles);
-        float distanceToMouse = dist(mouseX, mouseY, width / 2, height / 2);
-        float brightness = map(distanceToMouse, 0, width / 2, 255, 0);
-        fill(i * (255 / numCircles), 255, brightness);
-        ellipse(width / 2, height / 2, radius1 * 2, radius1 * 2);
-    }
-    break;
+                for (int i = numCircles; i > 0; i--) {
+                    float radius1 = maxRadius * (i / (float)numCircles);
+                    float distanceToMouse = dist(mouseX, mouseY, width / 2, height / 2);
+                    float brightness = map(distanceToMouse, 0, width / 2, 255, 0);
+
+                    fill(i * (255 / numCircles), 255, brightness);
+
+                    ellipse(width / 2, height / 2, radius1 * 2, radius1 * 2);
+                }
+                break;
+
+            case 4:
+                for (int i = 0; i < numStars; i++) {
+                    float twinkle = map(noise(millis() * starTwinkleRate[i]), 0, 1, 0, 255);
+                    stroke(twinkle);
+                    point(starX[i], starY[i]);
+            }
+            break;
 
 
             default:
@@ -103,6 +123,11 @@ public class MultiSensoryFoLoopExperience extends PApplet {
     }
     
 }
+
+
+
+
+    
 
 
 
