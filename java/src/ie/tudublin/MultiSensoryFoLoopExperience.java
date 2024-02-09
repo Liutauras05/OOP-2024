@@ -99,12 +99,43 @@ public class MultiSensoryFoLoopExperience extends PApplet {
                 break;
 
             case 4:
-                for (int i = 0; i < numStars; i++) {
-                    float twinkle = map(noise(millis() * starTwinkleRate[i]), 0, 1, 0, 255);
-                    stroke(twinkle);
-                    point(starX[i], starY[i]);
-            }
+                int numberOfGreenStripes = 10; 
+                float stripeWidth = width / (float) numberOfGreenStripes; 
+
+                for (int i = 0; i < numberOfGreenStripes; i++) {
+                    float brightness = map(i, 0, numberOfGreenStripes - 1, 255, 0);
+                    fill(85, 255, brightness); 
+                    rect(i * stripeWidth, 0, stripeWidth, height);
+                }
+            
             break;
+
+            case 5:
+                int squareSize = 50; 
+                int[][] colors = {
+                    {255, 0, 0},    
+                    {255, 165, 0},  
+                    {255, 255, 0},  
+                    
+                };
+                int[][] positions = {
+                    {3, 0}, {4, 0}, 
+                    {2, 1}, {5, 1}, 
+                    {1, 2}, {6, 2}, 
+
+                };
+            
+                background(0);
+
+                for (int i = 0; i < positions.length; i++) {
+                    fill(colors[i][0], colors[i][1], colors[i][2]);
+                    int x = positions[i][0] * squareSize;
+                    int y = positions[i][1] * squareSize;
+                    rect(x, y, squareSize, squareSize);
+                }
+            break;
+
+            
 
 
             default:
@@ -127,7 +158,8 @@ public class MultiSensoryFoLoopExperience extends PApplet {
 
 
 
-    
+
+
 
 
 
