@@ -29,15 +29,64 @@ public class MultiSensoryFoLoopExperience extends PApplet {
         {
             case 0:
                 line(0, 0, width, height);
-                // Code goes here
+                float angleStep = TWO_PI / 36; 
+                for (float angle = 0; angle < TWO_PI; angle += angleStep) {
+                    float lineLength = dist(mouseX, mouseY, width / 2, height / 2) / 2; 
+                    float endX = mouseX + cos(angle) * lineLength;
+                    float endY = mouseY + sin(angle) * lineLength;
+
+                    stroke(angle * (255 / TWO_PI), 255, 255);
+
+                    line(mouseX, mouseY, endX, endY);
+                }
                 break;
             case 1:
                 for (int i = 0 ; i < 10 ; i ++)
                 {
-                    // Code goes here
+                    noLoop(); 
+                    noStroke(); 
 
+                    int numberOfStripes = 10; 
+                    float stripeWidth = width / (float) numberOfStripes; 
+
+                    for (int j = 0; j < numberOfStripes; j++) {
+                        float hue = map(j, 0, numberOfStripes - 1, 0, 255);
+                        fill(hue, 255, 255);
+                        rect(j * stripeWidth, 0, stripeWidth, height);
+                    }
+                
                 }
                 break;
+            
+            case 2: 
+                int sides = 6; 
+                float radius = 200; 
+                float angleOffset = TWO_PI / sides; 
+
+            beginShape();
+                for (int i = 0; i < sides; i++) {
+                float angle = angleOffset * i;
+                float x = width / 2 + cos(angle) * radius;
+                float y = height / 2 + sin(angle) * radius;
+                vertex(x, y);
+            }
+            endShape(CLOSE); 
+            break;
+
+            case 3:
+    int numCircles = 10; 
+    float maxRadius = min(width, height) * 0.4f; 
+
+    for (int i = numCircles; i > 0; i--) {
+        float radius1 = maxRadius * (i / (float)numCircles);
+        float distanceToMouse = dist(mouseX, mouseY, width / 2, height / 2);
+        float brightness = map(distanceToMouse, 0, width / 2, 255, 0);
+        fill(i * (255 / numCircles), 255, brightness);
+        ellipse(width / 2, height / 2, radius1 * 2, radius1 * 2);
+    }
+    break;
+
+
             default:
                 // Code goes here
                 break;
@@ -54,3 +103,9 @@ public class MultiSensoryFoLoopExperience extends PApplet {
     }
     
 }
+
+
+
+
+    
+
